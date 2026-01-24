@@ -1,0 +1,228 @@
+*****	CONTROL FLOW STATEMENT :
+
+
+LAB EXERCISE  : 
+
+ 
+import java.util.Scanner;
+
+public class MenuProgram {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("\n===== MENU =====");
+            System.out.println("1. Check Even or Odd");
+            System.out.println("2. Display Fibonacci Series");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+
+            choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    // Even or Odd using if-else
+                    System.out.print("Enter a number: ");
+                    int num = sc.nextInt();
+
+                    if (num % 2 == 0) {
+                        System.out.println(num + " is Even");
+                    } else {
+                        System.out.println(num + " is Odd");
+                    }
+                    break;
+
+                case 2:
+                    // Fibonacci Series using loop
+                    System.out.print("Enter number of terms: ");
+                    int n = sc.nextInt();
+
+                    int a = 0, b = 1;
+                    System.out.print("Fibonacci Series: ");
+
+                    for (int i = 1; i <= n; i++) {
+                        System.out.print(a + " ");
+                        int next = a + b;
+                        a = b;
+                        b = next;
+                    }
+                    System.out.println();
+                    break;
+
+                case 3:
+                    System.out.println("Exiting program...");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+
+        } while (choice != 3);
+
+        sc.close();
+    }
+}
+
+
+
+
+
+*****	CLASSES AND OBJECTS :
+
+
+LAB EXERCISE : 
+
+
+class Student {
+
+    String name;
+    int age;
+
+        void displayDetails() {
+        System.out.println("Student Name: " + name);
+        System.out.println("Student Age: " + age);
+    }
+
+    public static void main(String[] args) {
+
+        Student s1 = new Student();
+
+        s1.name = "John";
+        s1.age = 20;
+
+        s1.displayDetails();
+    }
+}
+
+
+
+--------------------------------------------------------------------
+
+package OOPS;
+class Admin{
+	int id;
+	void show(int id) {
+		this.id=id;
+		System.out.println("Admin class Admin id"+id);
+	}
+}
+class Student extends Admin{
+	void show(int studentid) {
+		super.show(300);
+		this.id=studentid;
+		System.out.println("Student class Student id"+id);
+	}
+}
+class Result extends Student{
+	void show(int Resultid) {
+		super.show(400);
+		this.id=Resultid;
+		System.out.println("Result class Result id"+id);
+	}
+}
+public class Multi_level_inheritance {
+public static void main(String[] args) {
+	Result r=new Result();
+	r.show(100);
+}
+}
+
+
+
+--------------------------------------------------------------------
+
+package OOPS;
+
+public class Encapsulation_class{
+
+	private int id;
+	private String username,password;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	@Override
+	public String toString() {
+		return "Encapsulation_class [id=" + id + ", username=" + username + ", password=" + password + "]";
+	}
+}
+
+
+
+
+MAIN METHOD :
+
+
+package OOPS;
+
+public class Call_encapsulation {
+public static void main(String[] args) {
+	
+	Encapsulation_class ob=new Encapsulation_class();
+	ob.setId(101);
+	ob.setUsername("Darshit");
+	ob.setPassword("123456");
+	
+//	System.out.println(ob.getId()+" "+ob.getUsername()+" "+ob.getPassword());
+	
+	//for direct print using toString 
+	System.out.println(ob.toString());
+}
+	
+}
+
+
+----------------------------------------------------------------
+
+
+package OOPS;
+public class method_overloading {
+
+	void pay() {
+		System.out.println("Welcome to Payment Portal");
+	}
+
+	void pay(int amount) {
+		System.out.println("Cash Payment of amount"+amount);
+	}
+
+	void pay(int amount,String UpiID) {
+		System.out.println("UPI Payment of amount"+amount+"by UPI ID"+UpiID);
+	}
+	
+	void pay(int amount,String Checknum,String Bank) {
+		System.out.println("Check Payment of amount"+amount+"by Checknum"+Checknum+"by Bank"+Bank);
+	}
+	
+	public static void main(String[] args) {
+		method_overloading m=new method_overloading();
+				m.pay();
+				m.pay(200);
+				m.pay(300,"UPIID");
+				m.pay(500,"90909090","SBI BANK");
+				
+	}
+	
+	
+	}	
+
+----------------------------------------------------------------
+
