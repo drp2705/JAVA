@@ -1,0 +1,368 @@
+Introduction to HTML and Its Structure
+
+HTML (HyperText Markup Language) is the standard language used to create web pages. It tells the browser what to display and how to structure content.
+
+Basic Structure of HTML:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Page</title>
+</head>
+<body>
+    <h1>Hello World</h1>
+</body>
+</html>
+
+--------------------------------------------------------
+<!DOCTYPE html> → Defines HTML5 document
+
+<html> → Root element
+
+<head> → Contains metadata (title, CSS, etc.)
+
+<body> → Visible content of the page
+
+
+Explanation of Key HTML Tags :
+
+HTML = Web page structure
+
+<a> → Link
+
+<form> → User input
+
+<table> → Data display
+
+<img> → Image
+
+<ul>, <ol>, <li> → Lists
+
+<p> → Paragraph
+
+<br> → Line break
+
+<label> → Form label
+
+
+What is CSS?
+
+CSS (Cascading Style Sheets) is used to style and design web pages created with HTML.
+
+👉 It controls:
+
+Colors 🎨
+
+Fonts ✍️
+
+Layout 📐
+
+Spacing 📏
+
+Animations ✨
+
+
+Types of CSS
+
+1️⃣ Inline CSS
+CSS is applied directly inside HTML elements using the style attribute.
+
+2️⃣ Internal CSS
+CSS is written inside a <style> tag within the <head> section.
+
+3️⃣ External CSS
+CSS is written in a separate .css file and linked to HTML.
+
+
+Margin vs Padding (CSS)
+
+Margin
+
+Margin is the space outside an element’s border.
+
+👉 It creates distance between elements.
+
+🔹 Padding
+
+Padding is the space inside an element, between content and border.
+
+👉 It creates space within the element.
+
+
+Introduction to CSS Pseudo-Classes
+
+What are Pseudo-Classes?
+
+Pseudo-classes are special keywords added to CSS selectors that define the state of an element.
+
+👉 They allow you to style elements based on user interaction or condition.
+
+🔹 :hover
+Applies style when the user moves the mouse over an element.
+
+🔹 :focus
+Applies style when an element is focused (clicked or selected using keyboard).
+
+🔹 :active
+Applies style when an element is being clicked (active state).
+
+🔹 :visited
+Applies style to visited links.
+
+
+Difference Between id and class in CSS :
+
+🔹 id
+
+Used to identify a unique element
+
+Each id should be used only once in a page
+
+🔹 class
+
+Used to identify multiple elements
+
+Can be reused many times
+
+
+Overview of Client-Server Architecture
+📌 What is Client-Server Architecture?
+
+Client-server architecture is a model where:
+
+👉 Client sends a request
+👉 Server processes the request and sends a response
+
+How it Works : 
+
+User opens a website in browser (client)
+
+Client sends request to server
+
+Server processes request (data, logic)
+
+Server sends response back
+
+Client displays result
+
+
+Roles in Client-Server Architecture
+🖥️ Client
+📌 Role:
+
+Sends requests
+
+Displays response
+
+🗄️ Server
+📌 Role:
+
+Processes requests
+
+Manages data and business logic
+
+Sends response
+
+
+Introduction to HTTP Protocol
+📌 What is HTTP?
+
+HTTP (HyperText Transfer Protocol) is a communication protocol used to transfer data between client (browser) and server.
+
+👉 It is the foundation of the web
+
+🔄 Role of HTTP in Web Communication
+
+HTTP follows a request–response model:
+
+Client sends an HTTP request
+
+Server processes it
+
+Server sends an HTTP response
+
+⚡ Features of HTTP
+
+Stateless → Each request is independent
+
+Simple & fast
+
+Works on port 80 (default)
+
+👉 Secure version = HTTPS (uses encryption)
+
+📩 HTTP Request
+📌 What is HTTP Request?
+
+A message sent by the client to the server asking for data.
+
+📦 HTTP Request Headers
+📌 What are Headers?
+
+Headers provide extra information about the request.
+
+🔹 Common Request Headers
+
+Host → Server address
+
+User-Agent → Browser details
+
+Accept → Data format (HTML, JSON)
+
+Authorization → Login/auth info
+
+📤 HTTP Response
+📌 What is HTTP Response?
+
+Message sent by server back to client.
+
+🔹 Common Status Codes
+
+200 OK → Success
+
+404 Not Found → Page not found
+
+500 Internal Server Error → Server issue
+
+📦 HTTP Response Headers
+📌 Purpose:
+
+Provide information about the server and response.
+
+🔹 Common Response Headers
+
+Content-Type → Type of data (HTML, JSON)
+
+Content-Length → Size of response
+
+Server → Server info
+
+Set-Cookie → Store user data
+
+🧩 Role of Components
+🌐 Web Container
+📌 Definition:
+
+Environment that manages web components like Servlets and JSP
+
+🎯 Responsibilities:
+
+Handle HTTP requests
+
+Manage lifecycle of servlets
+
+Session management
+
+📍 Example:
+
+Apache Tomcat
+
+⚙️ Application Server
+📌 Definition:
+
+Provides environment for business logic execution
+
+🎯 Responsibilities:
+
+Runs enterprise components (EJB)
+
+Transaction management
+
+Security handling
+
+📍 Examples:
+
+GlassFish
+
+JBoss
+
+🗄️ Database Server
+📌 Definition:
+
+Stores and retrieves application data
+
+🎯 Responsibilities:
+
+Data storage
+
+Query processing
+
+Data security
+
+📍 Examples:
+
+MySQL
+
+Oracle
+
+
+
+Introduction to Servlets
+📌 What is a Servlet?
+
+A Servlet is a Java program that runs on a web server and is used to create dynamic web applications.
+
+👉 It handles:
+
+Client requests
+
+Server responses
+
+👉 Runs inside a web container (like Apache Tomcat)
+
+🎯 Why Use Servlets?
+
+To process form data
+
+To generate dynamic content
+
+To handle business logic
+
+🔄 How Servlets Work
+📊 Step-by-Step Process:
+
+Client (browser) sends HTTP request
+
+Web server forwards request to Servlet
+
+Servlet processes request
+
+Servlet generates response
+
+Response sent back to client
+
+Servlet Lifecycle
+1️⃣ init()
+
+👉 Called once when servlet is loaded
+
+2️⃣ service()
+
+👉 Handles all requests (GET, POST)
+
+3️⃣ destroy()
+
+👉 Called before servlet is removed
+
+
+RequestDispatcher in Servlets
+📌 What is RequestDispatcher?
+
+RequestDispatcher is an interface in Servlets used to send a request from one resource to another resource on the server.
+
+👉 Resources can be:
+
+Another Servlet
+
+JSP page
+
+HTML file
+
+🎯 Why Use RequestDispatcher?
+
+To forward request to another page
+
+To include content from another resource
+
+Helps in modular web applications
+
