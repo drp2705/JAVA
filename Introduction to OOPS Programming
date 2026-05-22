@@ -1,0 +1,998 @@
+================================================================================
+         TOPS TECHNOLOGIES - INTRODUCTION TO OOPS PROGRAMMING
+                         ASSESSMENT ANSWERS
+              SOFTWARE ENGINEERING [Introduction to OOPS - A1]
+================================================================================
+
+
+================================================================================
+                  SECTION A: CONCEPT APPLICATION (THEORETICAL - SCENARIO BASED)
+================================================================================
+
+--------------------------------------------------------------------------------
+Q1. You are building a food delivery application. At which stage would you
+    prefer using a compiler over an interpreter, and why? Explain based on
+    execution speed, error detection and deployment.
+--------------------------------------------------------------------------------
+
+ANSWER:
+
+For a food delivery application, I would prefer a COMPILER at the
+Production/Deployment stage.
+
+REASON:
+
+1. EXECUTION SPEED:
+   -> A compiler translates the entire source code into machine code BEFORE
+      execution. So the app runs much faster at runtime.
+   -> An interpreter translates line-by-line during execution, making it slower.
+   -> In a food delivery app, speed is critical (order placement, real-time
+      tracking, payment), so compiled code performs better.
+
+2. ERROR DETECTION:
+   -> A compiler detects ALL syntax and type errors BEFORE running the program.
+   -> This means the entire codebase is validated at once during compilation.
+   -> For a food delivery app, catching errors before deployment prevents
+      app crashes for customers during order processing.
+
+3. DEPLOYMENT:
+   -> Compiled code produces an executable (.exe / .apk / binary) that can
+      be deployed directly without needing the source code on the machine.
+   -> This is more secure and efficient for production deployment.
+   -> Interpreted code requires the interpreter to be installed on every
+      machine, which is not ideal for app distribution.
+
+CONCLUSION:
+  -> Use Interpreter during Development (quick testing, line-by-line debugging).
+  -> Use Compiler during Production/Deployment (speed, security, efficiency).
+
+  +--------------------+---------------------+----------------------+
+  | Feature            | Compiler            | Interpreter          |
+  +--------------------+---------------------+----------------------+
+  | Translation        | Whole program once  | Line by line         |
+  | Speed              | Faster at runtime   | Slower               |
+  | Error Detection    | Before execution    | During execution     |
+  | Deployment         | Standalone binary   | Needs interpreter    |
+  | Best For           | Production apps     | Development/testing  |
+  +--------------------+---------------------+----------------------+
+
+
+--------------------------------------------------------------------------------
+Q2. You are asked to design a program that calculates employee salary with
+    multiple conditions (bonus, tax, overtime). Which programming constructs
+    would you combine to solve this efficiently?
+--------------------------------------------------------------------------------
+
+ANSWER:
+
+To calculate employee salary with bonus, tax, and overtime, I would
+combine the following programming constructs:
+
+1. VARIABLES & DATA TYPES:
+   -> Use float/double for salary, bonus, tax, overtime amounts.
+   -> Use int for hours worked, employee ID.
+
+2. ARITHMETIC OPERATORS:
+   -> To calculate basic salary = hours * hourly_rate
+   -> To calculate overtime = extra_hours * overtime_rate
+   -> To calculate tax = salary * tax_percentage / 100
+   -> Net salary = basic + bonus + overtime - tax
+
+3. CONDITIONAL STATEMENTS (if-else / switch):
+   -> To apply bonus based on performance grade.
+   -> To apply different tax slabs based on salary range.
+   -> Example:
+      if (salary > 50000)      tax_rate = 30%;
+      else if (salary > 30000) tax_rate = 20%;
+      else                     tax_rate = 10%;
+
+4. FUNCTIONS:
+   -> Separate functions for each calculation:
+      - calculateBonus()
+      - calculateTax()
+      - calculateOvertime()
+      - calculateNetSalary()
+   -> Makes code modular, reusable, and easier to maintain.
+
+5. LOOPS (if processing multiple employees):
+   -> Use a for loop to process all employees in a list.
+   -> Use a do-while loop for a menu-driven salary calculator.
+
+6. ARRAYS / STRUCTURES:
+   -> Use a structure to store employee data together:
+      struct Employee { int id; char name[50]; float salary; float bonus; }
+
+EXAMPLE LOGIC:
+
+  float calculateNetSalary(float basic, int extra_hours) {
+      float bonus     = (basic > 40000) ? basic * 0.10 : basic * 0.05;
+      float overtime  = extra_hours * 250.0;
+      float tax       = basic * 0.20;
+      float net       = basic + bonus + overtime - tax;
+      return net;
+  }
+
+CONCLUSION: Combining variables, if-else, functions, and structures makes
+the salary calculator efficient, clean, and easy to modify.
+
+
+--------------------------------------------------------------------------------
+Q3. While developing a menu-driven console application, why are loops
+    preferred over conditional repetition? Explain which loop you would
+    choose and why?
+--------------------------------------------------------------------------------
+
+ANSWER:
+
+WHY LOOPS ARE PREFERRED:
+
+  -> In a menu-driven application, the menu must be shown REPEATEDLY until
+     the user chooses to exit.
+  -> Using only if-else conditions, you would have to duplicate the menu
+     display code many times, which is inefficient and hard to maintain.
+  -> Loops allow the menu to repeat automatically without code duplication.
+
+PROBLEMS WITH CONDITIONAL REPETITION (without loops):
+  -> Code becomes very long and repetitive.
+  -> Hard to maintain -- changing the menu means editing many places.
+  -> Not scalable.
+
+WHICH LOOP TO CHOOSE -- do-while loop:
+
+  REASON:
+  -> A do-while loop executes the body AT LEAST ONCE before checking
+     the condition.
+  -> This is perfect for a menu because:
+     * The menu should always display ONCE before asking the user's choice.
+     * The loop continues until the user selects "Exit".
+  -> A while loop might skip showing the menu if the condition fails first.
+  -> A for loop is better when the number of repetitions is known in advance
+     (not suitable here since we don't know how many times the user will use
+     the menu).
+
+EXAMPLE:
+
+  do {
+      printf("\n===== MENU =====\n");
+      printf("1. Add Record\n");
+      printf("2. View Records\n");
+      printf("3. Delete Record\n");
+      printf("4. Exit\n");
+      printf("Enter your choice: ");
+      scanf("%d", &choice);
+
+      switch(choice) {
+          case 1: addRecord();    break;
+          case 2: viewRecords();  break;
+          case 3: deleteRecord(); break;
+          case 4: printf("Goodbye!\n"); break;
+          default: printf("Invalid choice! Try again.\n");
+      }
+  } while (choice != 4);
+
+CONCLUSION: do-while loop is the best choice for menu-driven applications
+because it guarantees at least one menu display and repeats until exit.
+
+
+--------------------------------------------------------------------------------
+Q4. A student writes a program to calculate average marks using int variables
+    and gets incorrect output. Identify the probable cause and explain how
+    choosing the correct data type solves the issue.
+--------------------------------------------------------------------------------
+
+ANSWER:
+
+PROBABLE CAUSE -- Integer Division Problem:
+
+  -> When a student uses int variables to calculate average, the division
+     result loses the decimal part.
+  -> In C/Java, dividing two int values gives an int result (truncation).
+  -> Example:
+     int total = 250, count = 3;
+     int avg = total / count;   // Result: 83 (instead of 83.33)
+
+  -> The correct average is 83.33 but the program shows 83 (decimal is lost).
+  -> This is called INTEGER TRUNCATION.
+
+WRONG CODE:
+  int marks1 = 75, marks2 = 80, marks3 = 95;
+  int total   = marks1 + marks2 + marks3;  // 250
+  int average = total / 3;                 // 83 (WRONG! should be 83.33)
+  printf("Average = %d", average);
+
+SOLUTION -- Use float or double:
+
+CORRECT CODE:
+  int   marks1 = 75, marks2 = 80, marks3 = 95;
+  float total   = marks1 + marks2 + marks3;   // 250.0
+  float average = total / 3;                   // 83.33 (CORRECT)
+  printf("Average = %.2f", average);            // Output: 83.33
+
+OR use explicit type casting:
+  int average_int = total / 3;                     // WRONG
+  float average   = (float)total / 3;              // CORRECT -- cast to float
+
+DATA TYPE SELECTION GUIDE:
+  +----------+----------------------------+---------------------------+
+  | Data Type| Use When                   | Example                   |
+  +----------+----------------------------+---------------------------+
+  | int      | Whole numbers only         | count, roll number, index |
+  | float    | Decimal precision needed   | average, percentage, tax  |
+  | double   | High precision decimals    | scientific calculations   |
+  +----------+----------------------------+---------------------------+
+
+CONCLUSION: Always use float or double for calculations involving division
+where decimal accuracy is important (averages, percentages, tax, etc.).
+
+
+--------------------------------------------------------------------------------
+Q5. You are debugging a program that compiles successfully but crashes at
+    runtime. Which category of error is this? Mention two debugging practices
+    you would follow to resolve it.
+--------------------------------------------------------------------------------
+
+ANSWER:
+
+CATEGORY OF ERROR -- RUNTIME ERROR:
+
+  There are 3 types of errors in programming:
+  1. Syntax Error    -- detected at compile time (missing semicolon, etc.)
+  2. Runtime Error   -- occurs DURING execution (program compiles but crashes)
+  3. Logical Error   -- program runs but gives wrong output
+
+  Since the program COMPILES SUCCESSFULLY but CRASHES at runtime,
+  this is a RUNTIME ERROR.
+
+  Common causes of Runtime Errors:
+  -> Division by zero         (int x = 5/0)
+  -> Null pointer/reference   (accessing uninitialized pointer)
+  -> Array index out of bounds (arr[10] when size is 5)
+  -> Stack overflow           (infinite recursion)
+  -> File not found           (opening a file that doesn't exist)
+
+TWO DEBUGGING PRACTICES:
+
+  PRACTICE 1: Use Print Statements / Console Logging
+  ---------------------------------------------------
+  -> Add printf() / System.out.println() statements at key points
+     in the program to track variable values and program flow.
+  -> This helps identify EXACTLY where the crash occurs.
+
+  Example:
+    printf("Before division: a=%d, b=%d\n", a, b);
+    result = a / b;    // <-- crash here if b=0
+    printf("After division: result=%d\n", result);
+
+  -> If the second print never appears, you know the crash is at the division.
+
+  PRACTICE 2: Use a Debugger Tool (Step-by-step execution)
+  ---------------------------------------------------------
+  -> Use a debugger (GDB for C, built-in debugger in Eclipse/IntelliJ for Java).
+  -> Set BREAKPOINTS at suspected lines.
+  -> Step through the program line by line and watch variable values.
+  -> This pinpoints the exact line and condition that causes the crash.
+
+  Additional good practices:
+  -> Check for null values before using pointers/references.
+  -> Validate array index before accessing elements.
+  -> Add boundary checks for user input values.
+
+
+--------------------------------------------------------------------------------
+Q6. You need to store student records with name, marks, and grade.
+    Why would you choose a structure over multiple arrays in this scenario?
+--------------------------------------------------------------------------------
+
+ANSWER:
+
+USING MULTIPLE ARRAYS (NOT RECOMMENDED):
+  char  names[50][30];
+  int   marks[50];
+  char  grades[50];
+  // Three separate arrays for one student's related data
+
+PROBLEMS WITH MULTIPLE ARRAYS:
+  -> Data is scattered across different arrays.
+  -> To access one student's full info, you must use the same index in 3 arrays.
+  -> Hard to pass data to functions (need to pass 3 separate arrays).
+  -> Prone to index mismatch bugs (names[2] and marks[3] accidentally).
+  -> Not organized or readable.
+
+USING STRUCTURE (RECOMMENDED):
+
+  struct Student {
+      char  name[50];
+      int   marks;
+      char  grade;
+  };
+
+  struct Student students[50];  // Array of 50 student records
+
+ADVANTAGES OF STRUCTURE OVER MULTIPLE ARRAYS:
+
+  1. LOGICAL GROUPING:
+     -> All related data (name, marks, grade) of one student is kept together.
+     -> Easy to understand and maintain.
+
+  2. EASY DATA ACCESS:
+     -> Access all info using one variable:
+        students[0].name, students[0].marks, students[0].grade
+
+  3. FUNCTION PASSING:
+     -> Pass entire student record to a function in one parameter:
+        void printStudent(struct Student s) { ... }
+     -> With multiple arrays, you'd need 3 separate parameters.
+
+  4. LESS ERROR-PRONE:
+     -> No risk of index mismatch between separate arrays.
+     -> Data integrity is maintained.
+
+  5. SCALABLE:
+     -> Adding a new field (like roll number, email) is easy -- just add
+        it to the structure.
+     -> With arrays, you'd need to create yet another separate array.
+
+  COMPARISON:
+  +-----------------------+-------------------+----------------------+
+  | Feature               | Multiple Arrays   | Structure            |
+  +-----------------------+-------------------+----------------------+
+  | Data organization     | Scattered         | Grouped together     |
+  | Readability           | Poor              | High                 |
+  | Function passing      | 3 parameters      | 1 parameter          |
+  | Index mismatch risk   | High              | None                 |
+  | Adding new fields     | New array needed  | Add to structure     |
+  +-----------------------+-------------------+----------------------+
+
+CONCLUSION: Structure is the better choice for storing student records as it
+keeps related data together, improves readability, and reduces errors.
+
+
+================================================================================
+                        SECTION B: PRACTICAL CODING TASKS
+================================================================================
+
+--------------------------------------------------------------------------------
+B1. Conditional Logic Implementation - "Study Mood Assistant"
+--------------------------------------------------------------------------------
+
+ANSWER:
+
+#include <stdio.h>
+
+int main() {
+    int hours;
+
+    printf("========================================\n");
+    printf("         STUDY MOOD ASSISTANT           \n");
+    printf("========================================\n");
+    printf("Enter number of hours studied today: ");
+    scanf("%d", &hours);
+
+    printf("\n--- Your Motivation Message ---\n");
+
+    if (hours == 0) {
+        printf("You haven't studied at all today!\n");
+        printf("Even 30 minutes can make a difference. Start NOW!\n");
+    }
+    else if (hours >= 1 && hours <= 2) {
+        printf("Good start! You've begun the journey.\n");
+        printf("Try to push for at least 4 hours. You can do it!\n");
+    }
+    else if (hours >= 3 && hours <= 4) {
+        printf("Decent effort! You're on the right track.\n");
+        printf("Keep consistent and aim a little higher tomorrow!\n");
+    }
+    else if (hours >= 5 && hours <= 6) {
+        printf("Great work! You studied well today.\n");
+        printf("Take a short break and review what you learned!\n");
+    }
+    else if (hours >= 7 && hours <= 8) {
+        printf("Excellent dedication! You're a true scholar!\n");
+        printf("Make sure to rest too -- balance is key!\n");
+    }
+    else if (hours > 8) {
+        printf("WOW! Incredible focus today!\n");
+        printf("Remember: quality matters more than quantity. Rest well!\n");
+    }
+    else {
+        printf("Invalid input! Please enter a valid number of hours.\n");
+    }
+
+    printf("========================================\n");
+    return 0;
+}
+
+/*
+SAMPLE OUTPUT:
+  Enter number of hours studied today: 6
+  --- Your Motivation Message ---
+  Great work! You studied well today.
+  Take a short break and review what you learned!
+*/
+
+
+--------------------------------------------------------------------------------
+B2. Loops + Arrays - Screen Time Tracker (7 Days)
+--------------------------------------------------------------------------------
+
+ANSWER:
+
+#include <stdio.h>
+
+int main() {
+    float screenTime[7];
+    float total   = 0.0;
+    float average = 0.0;
+    float HEALTHY_LIMIT = 3.0;  // 3 hours per day is healthy limit
+    char  days[7][10] = {"Monday", "Tuesday", "Wednesday", "Thursday",
+                          "Friday", "Saturday", "Sunday"};
+
+    printf("========================================\n");
+    printf("       WEEKLY SCREEN TIME TRACKER       \n");
+    printf("========================================\n");
+
+    // Input: Accept 7 days of screen time
+    for (int i = 0; i < 7; i++) {
+        printf("Enter screen time for %s (in hours): ", days[i]);
+        scanf("%f", &screenTime[i]);
+        total += screenTime[i];
+    }
+
+    // Calculate average
+    average = total / 7;
+
+    // Output: Print results
+    printf("\n========================================\n");
+    printf("           WEEKLY REPORT                \n");
+    printf("========================================\n");
+
+    for (int i = 0; i < 7; i++) {
+        printf("%s       : %.1f hours\n", days[i], screenTime[i]);
+    }
+
+    printf("----------------------------------------\n");
+    printf("Total Screen Time  : %.1f hours\n", total);
+    printf("Average Screen Time: %.2f hours/day\n", average);
+
+    // Warning if average exceeds healthy limit
+    if (average > HEALTHY_LIMIT) {
+        printf("\n*** WARNING: Your average screen time (%.2f hrs) ***\n", average);
+        printf("*** exceeds the healthy limit of %.1f hours/day!  ***\n", HEALTHY_LIMIT);
+        printf("*** Please reduce screen time for better health!  ***\n");
+    }
+    else {
+        printf("\nGreat! Your screen time is within the healthy limit.\n");
+        printf("Keep maintaining a balanced digital lifestyle!\n");
+    }
+
+    printf("========================================\n");
+    return 0;
+}
+
+/*
+SAMPLE OUTPUT:
+  Enter screen time for Monday (in hours): 4
+  Enter screen time for Tuesday (in hours): 5
+  ...
+  Total Screen Time  : 28.0 hours
+  Average Screen Time: 4.00 hours/day
+  *** WARNING: Your average screen time (4.00 hrs) ***
+  *** exceeds the healthy limit of 3.0 hours/day!  ***
+*/
+
+
+--------------------------------------------------------------------------------
+B3. Functions & Pointers - Swap Two Numbers
+--------------------------------------------------------------------------------
+
+ANSWER:
+
+#include <stdio.h>
+
+// Function to swap using pointers (pass-by-reference)
+void swapNumbers(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main() {
+    int num1, num2;
+
+    printf("========================================\n");
+    printf("         NUMBER SWAP PROGRAM            \n");
+    printf("========================================\n");
+
+    printf("Enter first number  : ");
+    scanf("%d", &num1);
+    printf("Enter second number : ");
+    scanf("%d", &num2);
+
+    printf("\nBefore Swap: num1 = %d, num2 = %d\n", num1, num2);
+
+    // Call swap function with addresses (pointers)
+    swapNumbers(&num1, &num2);
+
+    printf("After Swap : num1 = %d, num2 = %d\n", num1, num2);
+    printf("========================================\n");
+
+    return 0;
+}
+
+/*
+EXPLANATION -- Why Pass-by-Reference (Pointers) is Necessary:
+
+  In C, function arguments are passed BY VALUE by default.
+  This means a COPY of the variable is sent to the function.
+  Changes made inside the function do NOT affect the original variables.
+
+  WRONG approach (pass-by-value):
+  void swapWrong(int a, int b) {
+      int temp = a;
+      a = b;
+      b = temp;
+      // Only swaps local copies! Original num1, num2 unchanged.
+  }
+
+  CORRECT approach (pass-by-reference using pointers):
+  void swapNumbers(int *a, int *b) {
+      int temp = *a;   // dereference pointer to get actual value
+      *a = *b;         // change value at memory address of num1
+      *b = temp;       // change value at memory address of num2
+  }
+
+  -> When we pass &num1 and &num2, we pass the MEMORY ADDRESSES.
+  -> Inside the function, *a and *b directly modify the original variables.
+  -> So the swap is reflected in main() after the function call.
+
+  MEMORY DIAGRAM:
+    num1 at address 1000 --> value: 10
+    num2 at address 2000 --> value: 20
+    After swap: address 1000 --> 20, address 2000 --> 10
+*/
+
+/*
+SAMPLE OUTPUT:
+  Enter first number  : 10
+  Enter second number : 20
+  Before Swap: num1 = 10, num2 = 20
+  After Swap : num1 = 20, num2 = 10
+*/
+
+
+--------------------------------------------------------------------------------
+B4. File Handling - Daily Goals Tracker
+--------------------------------------------------------------------------------
+
+ANSWER:
+
+#include <stdio.h>
+#include <string.h>
+
+#define FILENAME "daily_goals.txt"
+
+// Function to write goals to file
+void writeGoals() {
+    FILE *file;
+    char goal[200];
+    int  numGoals;
+
+    file = fopen(FILENAME, "a");  // "a" = append mode (adds to existing data)
+
+    if (file == NULL) {
+        printf("Error: Could not open file for writing!\n");
+        return;
+    }
+
+    printf("How many goals do you want to add? ");
+    scanf("%d", &numGoals);
+    getchar();  // clear newline from buffer
+
+    for (int i = 0; i < numGoals; i++) {
+        printf("Enter goal %d: ", i + 1);
+        fgets(goal, sizeof(goal), stdin);
+        goal[strcspn(goal, "\n")] = '\0';  // remove newline character
+        fprintf(file, "- %s\n", goal);
+    }
+
+    fclose(file);  // always close file after use
+    printf("Goals saved successfully!\n");
+}
+
+// Function to read and display goals from file
+void readGoals() {
+    FILE *file;
+    char  line[200];
+
+    file = fopen(FILENAME, "r");  // "r" = read mode
+
+    if (file == NULL) {
+        printf("No goals found! Add some goals first.\n");
+        return;
+    }
+
+    printf("\n========================================\n");
+    printf("           YOUR DAILY GOALS             \n");
+    printf("========================================\n");
+
+    while (fgets(line, sizeof(line), file) != NULL) {
+        printf("%s", line);
+    }
+
+    printf("========================================\n");
+    fclose(file);
+}
+
+// Main menu
+int main() {
+    int choice;
+
+    do {
+        printf("\n===== DAILY GOALS TRACKER =====\n");
+        printf("1. Add Today's Goals\n");
+        printf("2. View All Goals\n");
+        printf("3. Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: writeGoals();  break;
+            case 2: readGoals();   break;
+            case 3: printf("Goodbye! Stay productive!\n"); break;
+            default: printf("Invalid choice!\n");
+        }
+    } while (choice != 3);
+
+    return 0;
+}
+
+/*
+FILE MODES EXPLANATION:
+  "r"  -- Read mode        : Opens existing file for reading only.
+  "w"  -- Write mode       : Creates new file / overwrites existing file.
+  "a"  -- Append mode      : Opens file to add data at the end (no overwrite).
+  "r+" -- Read+Write mode  : Opens existing file for both reading and writing.
+  "w+" -- Write+Read mode  : Creates/overwrites file for read and write.
+
+WHY "a" (append) is used here:
+  -> Each time the user adds goals, they should be ADDED to existing goals.
+  -> "w" mode would ERASE all previous goals.
+  -> "a" mode safely adds new goals without losing old data.
+
+SAMPLE OUTPUT:
+  ===== DAILY GOALS TRACKER =====
+  1. Add Today's Goals
+  2. View All Goals
+  3. Exit
+  Enter choice: 1
+  How many goals do you want to add? 2
+  Enter goal 1: Complete OOP assignment
+  Enter goal 2: Revise Java concepts
+  Goals saved successfully!
+*/
+
+
+================================================================================
+              SECTION C: MINI CAPSTONE PROJECT
+              Mini Project: Student Productivity Tracker
+================================================================================
+
+OBJECTIVE:
+  Build a console-based Student Productivity Tracker that:
+  1. Is menu-driven
+  2. Logs daily study hours
+  3. Generates a weekly report
+  4. Stores data using files
+
+--------------------------------------------------------------------------------
+COMPLETE PROGRAM CODE:
+--------------------------------------------------------------------------------
+
+#include <stdio.h>
+#include <string.h>
+
+#define FILENAME  "productivity.txt"
+#define DAYS      7
+
+// Structure to hold one day's study log
+struct DayLog {
+    char  day[15];
+    float hours;
+};
+
+// -----------------------------------------------
+// Function 1: Log daily study hours to file
+// -----------------------------------------------
+void logStudyHours() {
+    FILE *file;
+    char  day[15];
+    float hours;
+
+    file = fopen(FILENAME, "a");  // append mode
+
+    if (file == NULL) {
+        printf("Error: Cannot open file!\n");
+        return;
+    }
+
+    printf("Enter day name (e.g. Monday): ");
+    scanf("%s", day);
+    printf("Enter study hours for %s: ", day);
+    scanf("%f", &hours);
+
+    if (hours < 0 || hours > 24) {
+        printf("Invalid hours! Please enter between 0 and 24.\n");
+        fclose(file);
+        return;
+    }
+
+    fprintf(file, "%s %.1f\n", day, hours);
+    fclose(file);
+
+    printf("Study log saved for %s: %.1f hours\n", day, hours);
+}
+
+// -----------------------------------------------
+// Function 2: Generate weekly report from file
+// -----------------------------------------------
+void generateWeeklyReport() {
+    FILE  *file;
+    char   day[15];
+    float  hours;
+    float  total   = 0.0;
+    float  average = 0.0;
+    int    count   = 0;
+    float  maxHours = 0.0;
+    float  minHours = 24.0;
+    char   bestDay[15] = "";
+
+    file = fopen(FILENAME, "r");  // read mode
+
+    if (file == NULL) {
+        printf("No data found! Please log study hours first.\n");
+        return;
+    }
+
+    printf("\n================================================\n");
+    printf("         WEEKLY PRODUCTIVITY REPORT             \n");
+    printf("================================================\n");
+    printf("  %-12s | %s\n", "Day", "Study Hours");
+    printf("  -------------|------------------\n");
+
+    while (fscanf(file, "%s %f", day, &hours) == 2) {
+        printf("  %-12s | %.1f hours\n", day, hours);
+        total += hours;
+        count++;
+
+        if (hours > maxHours) {
+            maxHours = hours;
+            strcpy(bestDay, day);
+        }
+        if (hours < minHours) {
+            minHours = hours;
+        }
+    }
+
+    fclose(file);
+
+    if (count == 0) {
+        printf("No records found.\n");
+        return;
+    }
+
+    average = total / count;
+
+    printf("  ------------------------------------------------\n");
+    printf("  Total Days Logged  : %d\n", count);
+    printf("  Total Study Hours  : %.1f hours\n", total);
+    printf("  Average Per Day    : %.2f hours\n", average);
+    printf("  Most Productive Day: %s (%.1f hrs)\n", bestDay, maxHours);
+    printf("  Least Hours Day    : %.1f hours\n", minHours);
+
+    // Performance rating
+    printf("\n  --- Performance Rating ---\n");
+    if (average >= 8) {
+        printf("  Rating: OUTSTANDING! You are a study champion!\n");
+    }
+    else if (average >= 6) {
+        printf("  Rating: EXCELLENT! Keep up the great work!\n");
+    }
+    else if (average >= 4) {
+        printf("  Rating: GOOD! You're making solid progress.\n");
+    }
+    else if (average >= 2) {
+        printf("  Rating: AVERAGE. Try to study more consistently.\n");
+    }
+    else {
+        printf("  Rating: NEEDS IMPROVEMENT. Set a daily study goal!\n");
+    }
+
+    // Weekly goal check
+    if (total >= 40) {
+        printf("  Weekly Goal (40 hrs): ACHIEVED! Great dedication!\n");
+    }
+    else {
+        printf("  Weekly Goal (40 hrs): Not reached (%.1f hrs short)\n",
+               40.0 - total);
+    }
+
+    printf("================================================\n");
+}
+
+// -----------------------------------------------
+// Function 3: View raw log file contents
+// -----------------------------------------------
+void viewAllLogs() {
+    FILE *file;
+    char  day[15];
+    float hours;
+    int   count = 1;
+
+    file = fopen(FILENAME, "r");
+
+    if (file == NULL) {
+        printf("No logs found!\n");
+        return;
+    }
+
+    printf("\n=== ALL STUDY LOGS ===\n");
+    while (fscanf(file, "%s %f", day, &hours) == 2) {
+        printf("%d. %s -- %.1f hours\n", count++, day, hours);
+    }
+    fclose(file);
+}
+
+// -----------------------------------------------
+// Function 4: Clear all logs (reset tracker)
+// -----------------------------------------------
+void clearLogs() {
+    FILE *file;
+    char  confirm;
+
+    printf("Are you sure you want to clear all logs? (y/n): ");
+    scanf(" %c", &confirm);
+
+    if (confirm == 'y' || confirm == 'Y') {
+        file = fopen(FILENAME, "w");  // "w" mode erases file content
+        if (file != NULL) {
+            fclose(file);
+            printf("All logs cleared successfully!\n");
+        }
+    }
+    else {
+        printf("Clear cancelled.\n");
+    }
+}
+
+// -----------------------------------------------
+// MAIN FUNCTION -- Menu-Driven Interface
+// -----------------------------------------------
+int main() {
+    int choice;
+
+    printf("\n");
+    printf("*****************************************************\n");
+    printf("*      STUDENT PRODUCTIVITY TRACKER                *\n");
+    printf("*      Track your study hours & weekly progress    *\n");
+    printf("*****************************************************\n");
+
+    do {
+        printf("\n===== MAIN MENU =====\n");
+        printf("1. Log Today's Study Hours\n");
+        printf("2. View Weekly Report\n");
+        printf("3. View All Logs\n");
+        printf("4. Clear All Logs\n");
+        printf("5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                logStudyHours();
+                break;
+            case 2:
+                generateWeeklyReport();
+                break;
+            case 3:
+                viewAllLogs();
+                break;
+            case 4:
+                clearLogs();
+                break;
+            case 5:
+                printf("\nThank you for using Student Productivity Tracker!\n");
+                printf("Keep studying and stay productive!\n");
+                break;
+            default:
+                printf("Invalid choice! Please enter 1-5.\n");
+        }
+
+    } while (choice != 5);
+
+    return 0;
+}
+
+
+--------------------------------------------------------------------------------
+SAMPLE OUTPUT:
+--------------------------------------------------------------------------------
+
+*****************************************************
+*      STUDENT PRODUCTIVITY TRACKER                *
+*      Track your study hours & weekly progress    *
+*****************************************************
+
+===== MAIN MENU =====
+1. Log Today's Study Hours
+2. View Weekly Report
+3. View All Logs
+4. Clear All Logs
+5. Exit
+Enter your choice: 1
+Enter day name: Monday
+Enter study hours for Monday: 6
+Study log saved for Monday: 6.0 hours
+
+Enter your choice: 1
+Enter day name: Tuesday
+Enter study hours for Tuesday: 7.5
+Study log saved for Tuesday: 7.5 hours
+
+Enter your choice: 2
+
+================================================
+         WEEKLY PRODUCTIVITY REPORT
+================================================
+  Day          | Study Hours
+  -------------|------------------
+  Monday       | 6.0 hours
+  Tuesday      | 7.5 hours
+  ------------------------------------------------
+  Total Days Logged  : 2
+  Total Study Hours  : 13.5 hours
+  Average Per Day    : 6.75 hours
+  Most Productive Day: Tuesday (7.5 hrs)
+  Least Hours Day    : 6.0 hours
+
+  --- Performance Rating ---
+  Rating: EXCELLENT! Keep up the great work!
+  Weekly Goal (40 hrs): Not reached (26.5 hrs short)
+================================================
+
+
+--------------------------------------------------------------------------------
+FILE STRUCTURE:
+  productivity.txt content example:
+  ----------------------------------
+  Monday 6.0
+  Tuesday 7.5
+  Wednesday 5.0
+  Thursday 8.0
+  Friday 4.5
+  Saturday 3.0
+  Sunday 6.5
+
+FILE MODES USED IN PROJECT:
+  "a" -- append  : logStudyHours()      -- adds new records without erasing
+  "r" -- read    : generateWeeklyReport() / viewAllLogs() -- reads stored data
+  "w" -- write   : clearLogs()          -- erases all content to reset
+
+
+================================================================================
+                    KEY CONCEPTS USED IN MINI PROJECT
+================================================================================
+
+1. STRUCTURES       -- struct DayLog to group day name and study hours
+2. FUNCTIONS        -- Separate functions for each menu option (modular code)
+3. FILE HANDLING    -- fopen(), fclose(), fprintf(), fscanf() with correct modes
+4. LOOPS            -- do-while for menu, while for reading file records
+5. CONDITIONALS     -- if-else for performance rating and validation
+6. ARRAYS           -- char arrays for day names
+7. POINTERS         -- used implicitly through file (FILE *file)
+8. INPUT VALIDATION -- Checking hours between 0-24, confirm before clear
+
+
+================================================================================
+              END OF ASSESSMENT - INTRODUCTION TO OOPS PROGRAMMING
+            Prepared for: TOPS Technologies | SOFTWARE ENGINEERING [A1]
+================================================================================
